@@ -26,14 +26,9 @@ function initializeQuestions(){
                   message: "What is the team manager's office number?"
               },
               {
-                  type: 'confirm',
-                  name: 'employeeAdd',
-                  message: 'Do you want to add another employee?'
-              },
-              {
                   type: 'list',
                   name: 'employeePositions',
-                  message: 'Which employee would you like to add?',
+                  message: 'Which employee would you like to add next?',
                   choices: ['Engineer', 'Intern', 'None'],
                   
               },
@@ -84,4 +79,23 @@ function initializeQuestions(){
           }
             ]
         )
+};
+
+function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data, err =>{
+        if (err){
+            return console.log(err);
+        }
+        console.log('Profile successfully generated!');
+        });
+    }
+
+function init() {
+    inquirer.prompt(questions).then((answers) => {
+        const profileContent = generateProfile(answers);
+        console.log(profileContent);
+    fs.appendFile('index.html', profileContent);
+      });
 }
+
+init();
