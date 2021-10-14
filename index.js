@@ -1,53 +1,87 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const generateProfile = require('./generateProfile.js');
 
-const questions = [
-    {
-      type: 'input',
-      name: 'name',
-      message: "What is the employee's name?"
-  },
-  {
-      type: 'number',
-      name: 'id',
-      message: 'What is the employee id?'
-  },
-  {
-      type: 'input',
-      name: 'email',
-      message: 'What is the employee email address?'
-  },
-  {
-      type: 'number',
-      name: 'officeNumber',
-      message: 'What is the employee office number?'
-  },
-  {
-      type: 'confirm',
-      name: 'managerConfirm',
-      message: 'Do you want to add another employee?'
-  },
-  {
-      type: 'list',
-      name: 'positions',
-      message: 'Who would you like to add?',
-      choices: ['Engineer', 'Intern', 'None']
-  },
-  {
-      type: 'input',
-      name: 'github',
-      message: 'Please enter your GitHub username:',
-    },
-    {
-      type: 'input',
-      name: 'email',
-      message: 'Please enter your email address:',
-    },
-    {
-        type: 'input',
-        name: 'school',
-        message: 'What school do you go to?',
-      },
-
-];
+function initializeQuestions(){
+    inquirer
+        .prompt(
+            [
+                {
+                  type: 'input',
+                  name: 'managerName',
+                  message: "What is the team manager's name?"
+              },
+              {
+                  type: 'number',
+                  name: 'managerId',
+                  message: "What is the team manager's id?"
+              },
+              {
+                  type: 'input',
+                  name: 'managerEmail',
+                  message: "What is the team manager's email address?"
+              },
+              {
+                  type: 'number',
+                  name: 'managerOffice',
+                  message: "What is the team manager's office number?"
+              },
+              {
+                  type: 'confirm',
+                  name: 'employeeAdd',
+                  message: 'Do you want to add another employee?'
+              },
+              {
+                  type: 'list',
+                  name: 'employeePositions',
+                  message: 'Which employee would you like to add?',
+                  choices: ['Engineer', 'Intern', 'None'],
+                  
+              },
+              {
+                  type: 'input',
+                  name: 'engineerGithub',
+                  message: 'Please enter your GitHub username:',
+                },
+                {
+                  type: 'input',
+                  name: 'employeeEmail',
+                  message: 'Please enter your email address:',
+                },
+                {
+                    type: 'input',
+                    name: 'internSchool',
+                    message: 'What school do you go to?',
+                  },
+                  {
+                    type: 'input',
+                    name: 'engineerName',
+                    message: "What is the engineer's name?"
+              },
+              {
+                  type: 'number',
+                  name: 'engineerId',
+                  message: "What is the engineer's id?"
+              },
+              {
+                  type: 'input',
+                  name: 'engineerEmail',
+                  message: "What is the engineer's email address?",
+              },
+              {
+                type: 'input',
+                name: 'internName',
+                message: "What is the intern's name?"
+          },
+          {
+              type: 'number',
+              name: 'internId',
+              message: "What is the intern's id?"
+          },
+          {
+              type: 'input',
+              name: 'internEmail',
+              message: "What is the intern's email address?",
+          }
+            ]
+        )
+}
