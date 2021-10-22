@@ -1,37 +1,69 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
+const manager = require('./lib/manager');
+const manager = require('./lib/manager');
+
+const team = [];
 
 function initializeQuestions(){
-    inquirer
-        .prompt(
-            [
-                {
-                  type: 'input',
-                  name: 'managerName',
-                  message: "What is the team manager's name?"
-              },
+    function generateManager() {
+        inquirer
+            .prompt(
+                [
+                    {
+                      type: 'input',
+                      name: 'managerName',
+                      message: "What is the team manager's name?"
+                  },
+                  {
+                      type: 'number',
+                      name: 'managerId',
+                      message: "What is the team manager's id?"
+                  },
+                  {
+                      type: 'input',
+                      name: 'managerEmail',
+                      message: "What is the team manager's email address?"
+                  },
+                  {
+                      type: 'number',
+                      name: 'managerOffice',
+                      message: "What is the team manager's office number?"
+                  },
+                ]).then(managerAnswers => {
+                    const manager = new manager(managerAnswers.managerName, managerAnswers.managerId, managerAnswers.managerEmail, managerAnswers.managerOffice);
+                    team.push(manager);
+                })
+
+    };
+
+              function teamBuild()
               {
-                  type: 'number',
-                  name: 'managerId',
-                  message: "What is the team manager's id?"
-              },
-              {
-                  type: 'input',
-                  name: 'managerEmail',
-                  message: "What is the team manager's email address?"
-              },
-              {
-                  type: 'number',
-                  name: 'managerOffice',
-                  message: "What is the team manager's office number?"
-              },
-              {
-                  type: 'list',
-                  name: 'employeePositions',
-                  message: 'Which employee would you like to add next?',
-                  choices: ['Engineer', 'Intern', 'None'],
+                  inquirer.prompt(
+                    [
+                        {
+                            type: 'list',
+                            name: 'employeePositions',
+                            message: 'Which employee would you like to add next?',
+                            choices: ['Engineer', 'Intern', 'None'],
+    
+                        }  
+
+                    ]
+                ).then(teamAnswers =>{
+                    if (teamAnswers.employeePositions === 'Engineer'){
+                        //call engineer function
+                    }
+                    else if (teamAnswers.employeePositions === 'Intern'){
+                        //call intern function
+                    }
+                    else 
+
+                })
+              };
+                      
                   
-              },
+                  
               {
                   type: 'input',
                   name: 'engineerGithub',
@@ -39,7 +71,7 @@ function initializeQuestions(){
                 },
                 {
                   type: 'input',
-                  name: 'employeeEmail',
+                  name: 'engineerEmail',
                   message: 'Please enter your email address:',
                 },
                 {
