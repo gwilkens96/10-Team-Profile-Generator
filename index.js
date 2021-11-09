@@ -1,14 +1,16 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const manager = require('./lib/manager');
-const manager = require('./lib/manager');
+const engineer = require('./lib/engineer');
+const intern = require('./lib/intern');
+const path = require("path");
 
 const team = [];
+const idArray =[];
 
 function initializeQuestions(){
     function generateManager() {
-        inquirer
-            .prompt(
+        inquirer.prompt(
                 [
                     {
                       type: 'input',
@@ -45,7 +47,7 @@ function initializeQuestions(){
                             type: 'list',
                             name: 'employeePositions',
                             message: 'Which employee would you like to add next?',
-                            choices: ['Engineer', 'Intern', 'None'],
+                            choices: ['Engineer', 'Intern', 'No more team members'],
     
                         }  
 
@@ -53,64 +55,66 @@ function initializeQuestions(){
                 ).then(teamAnswers =>{
                     if (teamAnswers.employeePositions === 'Engineer'){
                         //call engineer function
-                    }
-                    else if (teamAnswers.employeePositions === 'Intern'){
-                        //call intern function
-                    }
-                    else 
+                        function generateEngineer() {
+                            inquirer.prompt(
+                                    [
+                                        {
+                                          type: 'input',
+                                          name: 'engineerName',
+                                          message: "What is the engineer's name?"
+                                      },
+                                      {
+                                          type: 'number',
+                                          name: 'engineerId',
+                                          message: "What is the engineer's id?"
+                                      },
+                                      {
+                                          type: 'input',
+                                          name: 'engineerEmail',
+                                          message: "What is the engineer's email address?"
+                                      },
+                                      {
+                                          type: 'number',
+                                          name: 'engineerGithub',
+                                          message: "What is the engineer's github account?"
+                                      },
+                                    ]).then(engineerAnswers => {
+                                        const engineer = new engineer(engineerAnswers.engineerName, engineerAnswers.engineerId, engineerAnswers.engineerEmail, engineerAnswers.engineerGithub);
+                                        team.push(engineer);
+                                    })
+                    
+                        } else if (teamAnswers.employeePositions === 'Intern'){
+                            //call intern function
+                            function generateIntern() {
+                                inquirer.prompt(
+                                [
+                                    {
+                                        type: 'input',
+                                        name: 'internName',
+                                        message: "What is the intern's name?"
+                                    },
+                                    {
+                                        type: 'number',
+                                        name: 'internId',
+                                        message: "What is the intern's id?"
+                                    },
+                                    {
+                                        type: 'input',
+                                        name: 'internEmail',
+                                        message: "What is the intern's email address?"
+                                    },
+                                    {
+                                        type: 'input',
+                                        name: 'internSchool',
+                                        message: 'What school does the intern attend?',
+                                      },
 
-                })
-              };
-                      
-                  
-                  
-              {
-                  type: 'input',
-                  name: 'engineerGithub',
-                  message: 'Please enter your GitHub username:',
-                },
-                {
-                  type: 'input',
-                  name: 'engineerEmail',
-                  message: 'Please enter your email address:',
-                },
-                {
-                    type: 'input',
-                    name: 'internSchool',
-                    message: 'What school do you go to?',
-                  },
-                  {
-                    type: 'input',
-                    name: 'engineerName',
-                    message: "What is the engineer's name?"
-              },
-              {
-                  type: 'number',
-                  name: 'engineerId',
-                  message: "What is the engineer's id?"
-              },
-              {
-                  type: 'input',
-                  name: 'engineerEmail',
-                  message: "What is the engineer's email address?",
-              },
-              {
-                type: 'input',
-                name: 'internName',
-                message: "What is the intern's name?"
-          },
-          {
-              type: 'number',
-              name: 'internId',
-              message: "What is the intern's id?"
-          },
-          {
-              type: 'input',
-              name: 'internEmail',
-              message: "What is the intern's email address?",
-          }
-            ]
-        )
+                                ]).then(internAnswers => {
+                                    const intern = new intern(internAnswers.internName, internAnswers.internId, internAnswers.internEmail, internAnswers.internSchool);
+                                    team.push(intern);
+                                })
+                
+                    };
 };
 
 function writeToFile(fileName, data) {
