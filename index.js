@@ -8,7 +8,7 @@ const path = require("path");
 const team = [];
 const idArray =[];
 
-function initializeQuestions(){
+function initializeQuestions() {
     function generateManager() {
         inquirer.prompt(
                 [
@@ -94,6 +94,7 @@ function initializeQuestions(){
                                     ]).then(engineerAnswers => {
                                         const engineer = new engineer(engineerAnswers.engineerName, engineerAnswers.engineerId, engineerAnswers.engineerEmail, engineerAnswers.engineerGithub);
                                         team.push(engineer);
+                                        teamBuild();
                                     })
                     
                         };
@@ -125,9 +126,21 @@ function initializeQuestions(){
                                 ]).then(internAnswers => {
                                     const intern = new intern(internAnswers.internName, internAnswers.internId, internAnswers.internEmail, internAnswers.internSchool);
                                     team.push(intern);
-                                })
+                                    teamBuild();
+                                });
                 
-                    };
+                    }
+
+                    function buildTeam() {
+                        // Writes to the index.html
+                        fs.appendFile(index.html, team, function (err) {
+                            if (err) throw err;
+                            console.log('Team Generated!');
+                          });
+                      generateManager();
+
+                        }
+
 };
 
 initializeQuestions();
