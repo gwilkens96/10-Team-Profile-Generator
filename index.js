@@ -35,6 +35,8 @@ function initializeQuestions(){
                 ]).then(managerAnswers => {
                     const manager = new manager(managerAnswers.managerName, managerAnswers.managerId, managerAnswers.managerEmail, managerAnswers.managerOffice);
                     team.push(manager);
+                    idArray.push(answers.managerId);
+                    teamBuild();
                 })
 
     };
@@ -52,8 +54,19 @@ function initializeQuestions(){
                         }  
 
                     ]
-                ).then(teamAnswers =>{
-                    if (teamAnswers.employeePositions === 'Engineer'){
+                ).then(addTeammember => {
+                    switch (addTeammember.memberChoice) {
+                      case "Engineer":
+                        generateEngineer();
+                        break;
+                      case "Intern":
+                        generateIntern();
+                        break;
+                      default:
+                        buildTeam();
+                    }
+                  });
+                }
                         //call engineer function
                         function generateEngineer() {
                             inquirer.prompt(
@@ -83,7 +96,7 @@ function initializeQuestions(){
                                         team.push(engineer);
                                     })
                     
-                        } else if (teamAnswers.employeePositions === 'Intern'){
+                        };
                             //call intern function
                             function generateIntern() {
                                 inquirer.prompt(
@@ -117,21 +130,4 @@ function initializeQuestions(){
                     };
 };
 
-function writeToFile(fileName, data) {
-    fs.writeFile(fileName, data, err =>{
-        if (err){
-            return console.log(err);
-        }
-        console.log('Profile successfully generated!');
-        });
-    }
-
-function init() {
-    inquirer.prompt(questions).then((answers) => {
-        const profileContent = generateProfile(answers);
-        console.log(profileContent);
-    fs.appendFile('index.html', profileContent);
-      });
-}
-
-init();
+initializeQuestions();
