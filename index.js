@@ -1,9 +1,8 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const manager = require('./lib/manager');
-const engineer = require('./lib/engineer');
-const intern = require('./lib/intern');
-const path = require("path");
+const Manager = require('./lib/manager');
+const Engineer = require('./lib/engineer');
+const Intern = require('./lib/intern');
 
 const team = [];
 const idArray =[];
@@ -33,7 +32,7 @@ function initializeQuestions() {
                       message: "What is the team manager's office number?"
                   },
                 ]).then(managerAnswers => {
-                    const manager = new manager(managerAnswers.managerName, managerAnswers.managerId, managerAnswers.managerEmail, managerAnswers.managerOffice);
+                    const manager = new Manager(managerAnswers.managerName, managerAnswers.managerId, managerAnswers.managerEmail, managerAnswers.managerOffice);
                     team.push(manager);
                     idArray.push(answers.managerId);
                     teamBuild();
@@ -92,7 +91,7 @@ function initializeQuestions() {
                                           message: "What is the engineer's github account?"
                                       },
                                     ]).then(engineerAnswers => {
-                                        const engineer = new engineer(engineerAnswers.engineerName, engineerAnswers.engineerId, engineerAnswers.engineerEmail, engineerAnswers.engineerGithub);
+                                        const engineer = new Engineer(engineerAnswers.engineerName, engineerAnswers.engineerId, engineerAnswers.engineerEmail, engineerAnswers.engineerGithub);
                                         team.push(engineer);
                                         teamBuild();
                                     })
@@ -124,7 +123,7 @@ function initializeQuestions() {
                                       },
 
                                 ]).then(internAnswers => {
-                                    const intern = new intern(internAnswers.internName, internAnswers.internId, internAnswers.internEmail, internAnswers.internSchool);
+                                    const intern = new Intern(internAnswers.internName, internAnswers.internId, internAnswers.internEmail, internAnswers.internSchool);
                                     team.push(intern);
                                     teamBuild();
                                 });
