@@ -5,7 +5,6 @@ const Engineer = require('./lib/engineer');
 const Intern = require('./lib/intern');
 
 const team = [];
-const idArray =[];
 
 function initializeQuestions() {
     
@@ -35,7 +34,6 @@ function initializeQuestions() {
                 ]).then(managerAnswers => {
                     const manager = new Manager(managerAnswers.managerName, managerAnswers.managerId, managerAnswers.managerEmail, managerAnswers.managerOffice);
                     team.push(manager);
-                    idArray.push(managerAnswers.managerId);
                     teamBuild();
                 });
 
@@ -94,7 +92,6 @@ function initializeQuestions() {
                                     ]).then(engineerAnswers => {
                                         const engineer = new Engineer(engineerAnswers.engineerName, engineerAnswers.engineerId, engineerAnswers.engineerEmail, engineerAnswers.engineerGithub);
                                         team.push(engineer);
-                                        idArray.push(engineerAnswers.engineerId);
                                         teamBuild();
                                     })
                     
@@ -127,7 +124,6 @@ function initializeQuestions() {
                                 ]).then(internAnswers => {
                                     const intern = new Intern(internAnswers.internName, internAnswers.internId, internAnswers.internEmail, internAnswers.internSchool);
                                     team.push(intern);
-                                    idArray.push(internAnswers.internId);
                                     teamBuild();
                                 });
                 
