@@ -8,6 +8,7 @@ const team = [];
 const idArray =[];
 
 function initializeQuestions() {
+    
     function generateManager() {
         inquirer.prompt(
                 [
@@ -34,11 +35,11 @@ function initializeQuestions() {
                 ]).then(managerAnswers => {
                     const manager = new Manager(managerAnswers.managerName, managerAnswers.managerId, managerAnswers.managerEmail, managerAnswers.managerOffice);
                     team.push(manager);
-                    idArray.push(answers.managerId);
+                    idArray.push(managerAnswers.managerId);
                     teamBuild();
-                })
+                });
 
-    };
+    }
 
               function teamBuild()
               {
@@ -54,7 +55,7 @@ function initializeQuestions() {
 
                     ]
                 ).then(addTeammember => {
-                    switch (addTeammember.memberChoice) {
+                    switch (addTeammember.employeePositions) {
                       case "Engineer":
                         generateEngineer();
                         break;
@@ -62,7 +63,7 @@ function initializeQuestions() {
                         generateIntern();
                         break;
                       default:
-                        buildTeam();
+                        teamFinish();
                     }
                   });
                 }
@@ -130,16 +131,10 @@ function initializeQuestions() {
                 
                     }
 
-                    function buildTeam() {
-                        // Writes to the index.html
-                        fs.appendFile(index.html, team, function (err) {
-                            if (err) throw err;
-                            console.log('Team Generated!');
-                          });
-                      generateManager();
+                    
+                      
+                    generateManager();
 
-                        }
-
-};
+                    }
 
 initializeQuestions();
