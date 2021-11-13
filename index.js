@@ -1,8 +1,14 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
+const path = require('path');
 const Manager = require('./lib/manager');
 const Engineer = require('./lib/engineer');
 const Intern = require('./lib/intern');
+
+const OUTPUT_DIR = path.resolve(__dirname, "dist");
+const outputPath = path.join(OUTPUT_DIR, "index.html");
+
+const render = require('./profile-template.js');
 
 const team = [];
 
@@ -52,8 +58,8 @@ function initializeQuestions() {
                         }  
 
                     ]
-                ).then(addTeammember => {
-                    switch (addTeammember.employeePositions) {
+                ).then(addTeamMember => {
+                    switch (addTeamMember.employeePositions) {
                       case "Engineer":
                         generateEngineer();
                         break;
@@ -85,7 +91,7 @@ function initializeQuestions() {
                                           message: "What is the engineer's email address?"
                                       },
                                       {
-                                          type: 'number',
+                                          type: 'input',
                                           name: 'engineerGithub',
                                           message: "What is the engineer's github account?"
                                       },
@@ -130,7 +136,8 @@ function initializeQuestions() {
                     }
                     
                     function teamFinish() {
-                        fs.writeFileSync('index.html', team);
+                        fs.mkdirSync(OUTPUT_DIR);
+                        fs.writeFileSync(outputPath, render(team), "utf-8");
                     }
 
                     generateManager();

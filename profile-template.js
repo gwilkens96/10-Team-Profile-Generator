@@ -32,7 +32,7 @@ const createTeam = team => {
         </ul>
     </div>
 </div>
-        `
+        `;
     };
     
     const createIntern = intern => {
@@ -50,7 +50,7 @@ const createTeam = team => {
         </ul>
     </div>
 </div>
-        `
+        `;
     };
 
     const html = [];
@@ -92,8 +92,8 @@ module.exports = team => {
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 jumbotron mb-3 team-heading">
-                <h1 class="text-center">My Team bg-secondary</h1>
+            <div class="col-12 jumbotron mb-3 team-heading bg-secondary">
+                <h1 class="text-center">My Team</h1>
             </div>
         </div>
     </div>
