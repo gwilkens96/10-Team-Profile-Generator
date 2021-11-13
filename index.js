@@ -94,6 +94,7 @@ function initializeQuestions() {
                                     ]).then(engineerAnswers => {
                                         const engineer = new Engineer(engineerAnswers.engineerName, engineerAnswers.engineerId, engineerAnswers.engineerEmail, engineerAnswers.engineerGithub);
                                         team.push(engineer);
+                                        idArray.push(engineerAnswers.engineerId);
                                         teamBuild();
                                     })
                     
@@ -126,13 +127,16 @@ function initializeQuestions() {
                                 ]).then(internAnswers => {
                                     const intern = new Intern(internAnswers.internName, internAnswers.internId, internAnswers.internEmail, internAnswers.internSchool);
                                     team.push(intern);
+                                    idArray.push(internAnswers.internId);
                                     teamBuild();
                                 });
                 
                     }
-
                     
-                      
+                    function teamFinish() {
+                        fs.writeFileSync('index.html', team);
+                    }
+
                     generateManager();
 
                     }
