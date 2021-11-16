@@ -17,7 +17,12 @@ run npm install
 
 ## Usage
 
-npm start, fill out the necessary information and watch the program do the rest
+enter node index.js in the terminal, fill out the necessary information, and watch the program do the rest as shown here:
+
+
+https://user-images.githubusercontent.com/87712703/142054472-64cb8169-0ee4-44ba-8caa-f34e483182ff.mp4
+
+
 
 ## License
 
